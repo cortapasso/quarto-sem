@@ -1,0 +1,41 @@
+/*-- scss:defaults --*/
+
+// Fonts
+@import 'https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap';
+$font-family-sans-serif: "Roboto Condensed", sans-serif;
+$logo: url('img/logo.png');
+$posicao: 99% 95%;
+$tamanho: 300px;
+$fundo-branco: white;
+$cor-preta: black;
+$sombra: none;
+$azul: #3D25D6;
+
+/*-- scss:rules --*/
+
+.title-slide {
+  background-image: $logo;
+  background-position: $posicao;
+  background-size: $tamanho;
+  background-color: $fundo-branco;
+  color: $cor-preta;
+  text-shadow: $sombra;
+
+}
+
+.imgleft {
+  float: left; 
+  padding-top: 50px;
+}
+
+.imgright {
+  float: right;
+  width: 300px;
+  height: auto;
+}
+
+.titulo{
+  background-color: none;
+  text-align: center;
+  font-size: 50px;
+}
