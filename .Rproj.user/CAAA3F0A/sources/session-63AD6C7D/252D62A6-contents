@@ -3,6 +3,8 @@ title: "Seminário"
 subtitle: "2ECO118 - Economia Brasileira"
 author: "João P. Cortapasso <br> Mestrando em Economia Regional <br><br><a href='https://github.com/cortapasso'><i class='fa-brands fa-github'></i>&nbsp; cortapasso</a>"
 date: 06/09/2022 <br> <img src="img/ppe.png" class="imgleft"/> <img src="img/logo.png" class="imgright"/>
+bibliography: "styles/ref.bib"
+csl:  "styles/abnt.csl"
 format: 
   revealjs:
     theme: [default, "styles/custom.scss"]
@@ -15,7 +17,7 @@ include-in-header: "styles/header.html"
 ## O milagre econômico e a distribuição de renda no Brasil {background-color="black" background-image="img/bg.webp" background-size="cover"}
 :::
 
-## O que foi o milagre econômico???
+## Definição do termo
 
 :::{.incremental }
 - Período entre 1968 a 1973
@@ -27,15 +29,14 @@ Quarto enables you to weave together content and executable code into a finished
 
 ## Bullets
 
+Segundo Giambiagi [-@giambiagi2005]
+
 When you click the **Render** button a document will be generated that includes:
 
 -   Content authored with markdown
 -   Output from executable code
 
-## Code
+## Referências
 
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
-```
+::: {#refs}
+:::

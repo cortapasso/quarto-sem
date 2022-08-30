@@ -29,6 +29,26 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 1em;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -335,8 +355,8 @@
 <section id="o-milagre-econômico-e-a-distribuição-de-renda-no-brasil" class="slide level2 center titulo" data-background-color="black" data-background-image="img/bg.webp" data-background-size="cover">
 <h2>O milagre econômico e a distribuição de renda no Brasil</h2>
 </section>
-<section id="o-que-foi-o-milagre-econômico" class="slide level2">
-<h2>O que foi o milagre econômico???</h2>
+<section id="definição-do-termo" class="slide level2">
+<h2>Definição do termo</h2>
 <div>
 <ul>
 <li class="fragment">Período entre 1968 a 1973</li>
@@ -348,18 +368,18 @@
 </section>
 <section id="bullets" class="slide level2">
 <h2>Bullets</h2>
+<p>Segundo Giambiagi <span class="citation" data-cites="giambiagi2005">(<a href="#/referências" role="doc-biblioref" onclick="">2005</a>)</span></p>
 <p>When you click the <strong>Render</strong> button a document will be generated that includes:</p>
 <ul>
 <li>Content authored with markdown</li>
 <li>Output from executable code</li>
 </ul>
 </section>
-<section id="code" class="slide level2">
-<h2>Code</h2>
-<p>When you click the <strong>Render</strong> button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<section id="referências" class="slide level2 smaller scrollable">
+<h2>Referências</h2>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="doc-bibliography">
+<div id="ref-giambiagi2005" class="csl-entry" role="doc-biblioentry">
+GIAMBIAGI, F.; VILLELA, A. A. <strong>Economia brasileira contempor<span>â</span>nea</strong>. [<em>S. l.</em>]: Elsevier Brasil, 2005.
 </div>
 </div>
 <div class="footer footer-default">
@@ -577,48 +597,6 @@
         ]
       });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        function fireSlideChanged(previousSlide, currentSlide) {
-
-          // dispatch for htmlwidgets
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for reveal
-        if (window.Reveal) {
-          window.Reveal.addEventListener("slidechanged", function(event) {
-            fireSlideChanged(event.previousSlide, event.currentSlide);
-          });
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
