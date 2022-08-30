@@ -4,7 +4,7 @@ subtitle: "2ECO118 - Economia Brasileira"
 author: "João P. Cortapasso <br> Mestrando em Economia Regional <br><br><a href='https://github.com/cortapasso'><i class='fa-brands fa-github'></i>&nbsp; cortapasso</a>"
 date: 06/09/2022 <br> <img src="img/ppe.png" class="imgleft"/> <img src="img/logo.png" class="imgright"/>
 bibliography: "styles/ref.bib"
-csl:  "styles/abnt.csl"
+csl:  "styles/abnt3.csl"
 format: 
   revealjs:
     theme: [default, "styles/custom.scss"]
@@ -29,7 +29,7 @@ Quarto enables you to weave together content and executable code into a finished
 
 ## Bullets
 
-Segundo Giambiagi [-@giambiagi2005]
+Segundo @giambiagi2005
 
 When you click the **Render** button a document will be generated that includes:
 
