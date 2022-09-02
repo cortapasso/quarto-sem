@@ -13,28 +13,108 @@ format:
 editor: visual
 include-in-header: "styles/header.html"
 ---
+
 ::: {.center .titulo}
 ## O milagre econômico e a distribuição de renda no Brasil {background-color="black" background-image="img/bg.webp" background-size="cover"}
 :::
 
-## Definição do termo
+## Definição
 
-:::{.incremental }
-- Período entre 1968 a 1973
-- aqui vai outro texto
-- aqui mais outro
+::: {.incremental .paragrafo}
+-   Período entre 1968 a 1973;
+-   Denominado milagre econômico por conta de políticas monetárias expansionista e crescimento da atividade econômica;
+-   Gradual redução da inflação e do desequilíbrio externo;
+-   Elevado crescimento do produto interno da economia brasileira, numa média de até 11% anual;
+-   Superávits no balanço de pagamentos.
 :::
 
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+## Precedentes do Milagre Econômico
 
-## Bullets
+::: {.incremental .paragrafo}
+-   PAEG;
+-   Denominado milagre econômico por conta de políticas monetárias expansionista e crescimento da atividade econômica;
+-   Gradual redução da inflação e do desequilíbrio externo;
+-   Elevado crescimento do produto interno da economia brasileira, numa média de até 11% anual;
+-   Superávits no balanço de pagamentos.
+:::
 
-Segundo @giambiagi2005
+```{r}
+#| echo: false
+#| message: false
+#| results: hide
+#| warning: false
+  
+options(encoding = "UTF-8")
+library(ipeadatar)
+library(tidyverse)
+library(ggplot2)
+library(tsibble)
+series <- ipeadatar::ipeadata("SCN10_PIBG10")
+series <- series %>% select(-uname, -tcode, -code)
 
-When you click the **Render** button a document will be generated that includes:
+series_ts <-  tsibble(
+  Ano = (series$date),
+  Valor = series$value,
+  index = Ano
+)
 
--   Content authored with markdown
--   Output from executable code
+#Decidi deixar esse jeito de lado, pois o de baixo da um resultado melhor :D
+#series_plot <- series_ts %>% 
+#  ggplot(aes(x = Ano, y = Valor)) +
+#    labs(title = "Produto Interno bruto a preços de mercado: variação real anual",
+#         subtitle = "1945-1965",
+#         caption = "Fonte: Ipeadata",
+#         x = "Anos",
+#         y = "Variação em (%)") +
+#    geom_line(colour = "#008FD5", size = 1) +
+#    ylim(0, 12) +
+#    scale_x_date(limits = as.Date(c("1945-01-01","1965-01-01")), date_labels = "%Y", date_breaks = "5 years") +
+#    theme(aspect.ratio = 1) +
+#    theme(plot.caption.position = "plot",
+#        plot.caption = element_text(hjust = 0)) +
+#    theme(plot.title.position = "plot") +
+#    theme(axis.line = element_line(size = 0.5))
+
+teste <- series_ts %>%
+  filter(between(Ano, as.Date("1945-01-01"), as.Date("1965-01-01"))) %>% 
+  ggplot(aes(x = Ano, y = Valor)) +
+  labs(title = "Produto Interno bruto a preços de mercado: variação real anual",
+       subtitle = "1945-1965",
+       caption = "Fonte: Ipeadata",
+       x = "Anos",
+       y = "Variação em (%)") +
+  geom_line(colour = "#008FD5", size = 1) +
+  ylim(0, 12) +
+  theme(#aspect.ratio = 0.8,
+        plot.caption.position = "plot",
+        plot.title.position = "plot",
+        plot.caption = element_text(hjust = 0),
+        axis.line = element_line(size = 0.5),
+        plot.title = element_text(size = 18))
+
+#Anotacao, apagar depois, vai servir pra mostrar quando começa a ditadura etc.
+#annotate(geom="text", x=as.Date("1989-01-01"), y=42, label="Plano Verão", family="serif") +
+#annotate(geom="point", x=as.Date("1989-01-01"), y=37, size=5, shape=1, fill="transparent") +
+#annotate(geom="text", x=as.Date("1991-03-01"), y=82, label="Plano Collor I", family="serif") +
+#annotate(geom="point", x=as.Date("1990-03-01"), y=82, size=5, shape=1, fill="transparent") +
+```
+
+## 
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-format: retina
+#| fig-dpi: 300
+#| fig-width: 9
+#| fig-height: 7
+
+#series_plot
+
+teste
+
+```
 
 ## Referências
 

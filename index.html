@@ -32,7 +32,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 1em;
     }
     .hanging div.csl-entry {
       margin-left:2em;
@@ -355,32 +354,41 @@
 <section id="o-milagre-econômico-e-a-distribuição-de-renda-no-brasil" class="slide level2 center titulo" data-background-color="black" data-background-image="img/bg.webp" data-background-size="cover">
 <h2>O milagre econômico e a distribuição de renda no Brasil</h2>
 </section>
-<section id="definição-do-termo" class="slide level2">
-<h2>Definição do termo</h2>
-<div>
+<section id="definição" class="slide level2">
+<h2>Definição</h2>
+<div class="paragrafo">
 <ul>
-<li class="fragment">Período entre 1968 a 1973</li>
-<li class="fragment">aqui vai outro texto</li>
-<li class="fragment">aqui mais outro</li>
+<li class="fragment">Período entre 1968 a 1973;</li>
+<li class="fragment">Denominado milagre econômico por conta de políticas monetárias expansionista e crescimento da atividade econômica;</li>
+<li class="fragment">Gradual redução da inflação e do desequilíbrio externo;</li>
+<li class="fragment">Elevado crescimento do produto interno da economia brasileira, numa média de até 11% anual;</li>
+<li class="fragment">Superávits no balanço de pagamentos.</li>
 </ul>
 </div>
-<p>Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <a href="https://quarto.org/docs/presentations/" class="uri">https://quarto.org/docs/presentations/</a>.</p>
 </section>
-<section id="bullets" class="slide level2">
-<h2>Bullets</h2>
-<p>Segundo <span class="citation" data-cites="giambiagi2005">GIAMBIAGI <em>et al.</em> (<a href="#/referências" role="doc-biblioref" onclick="">2011</a>)</span></p>
-<p>When you click the <strong>Render</strong> button a document will be generated that includes:</p>
+<section id="precedentes-do-milagre-econômico" class="slide level2">
+<h2>Precedentes do Milagre Econômico</h2>
+<div class="paragrafo">
 <ul>
-<li>Content authored with markdown</li>
-<li>Output from executable code</li>
+<li class="fragment">PAEG;</li>
+<li class="fragment">Denominado milagre econômico por conta de políticas monetárias expansionista e crescimento da atividade econômica;</li>
+<li class="fragment">Gradual redução da inflação e do desequilíbrio externo;</li>
+<li class="fragment">Elevado crescimento do produto interno da economia brasileira, numa média de até 11% anual;</li>
+<li class="fragment">Superávits no balanço de pagamentos.</li>
 </ul>
+</div>
+<div class="cell">
+
+</div>
 </section>
+<section id="section" class="slide level2">
+<h2></h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-2-1.png" width="864" class="r-stretch"></section>
 <section id="referências" class="slide level2 smaller scrollable">
 <h2>Referências</h2>
-<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="doc-bibliography">
-<div id="ref-giambiagi2005" class="csl-entry" role="doc-biblioentry">
-GIAMBIAGI, F. <em>et al.</em> <strong>Economia brasileira contempor<span>â</span>nea: 1945-2010</strong>. Rio de Janeiro: Elsevier Brasil, 2011.
-</div>
+<div id="refs" role="doc-bibliography">
+
 </div>
 <div class="footer footer-default">
 
@@ -597,6 +605,48 @@ GIAMBIAGI, F. <em>et al.</em> <strong>Economia brasileira contempor<span>â</spa
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          // dispatch for htmlwidgets
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for reveal
+        if (window.Reveal) {
+          window.Reveal.addEventListener("slidechanged", function(event) {
+            fireSlideChanged(event.previousSlide, event.currentSlide);
+          });
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
