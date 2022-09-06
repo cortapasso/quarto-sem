@@ -28,15 +28,6 @@ include-in-header: "styles/header.html"
 -   Superávits no balanço de pagamentos.
 :::
 
-## Precedentes do Milagre Econômico
-
-::: {.incremental .paragrafo}
--   PAEG;
--   Denominado milagre econômico por conta de políticas monetárias expansionista e crescimento da atividade econômica;
--   Gradual redução da inflação e do desequilíbrio externo;
--   Elevado crescimento do produto interno da economia brasileira, numa média de até 11% anual;
--   Superávits no balanço de pagamentos.
-:::
 
 ```{r}
 #| echo: false
@@ -49,16 +40,31 @@ library(ipeadatar)
 library(tidyverse)
 library(ggplot2)
 library(tsibble)
-series <- ipeadatar::ipeadata("SCN10_PIBG10")
-series <- series %>% select(-uname, -tcode, -code)
-series <- series %>% mutate(
+library(ggrepel)
+
+pib_data <- ipeadatar::ipeadata("SCN10_PIBG10")
+pib_data <- pib_data %>% select(-uname, -tcode, -code)
+pib_data <- pib_data %>% mutate(
   milagre = if_else(date >= "1968-01-01" & date <= "1972-01-01", TRUE, FALSE)
 )
 
-series_ts <-  tsibble(
-  Ano = (series$date),
-  Valor = series$value,
-  Milagre = series$milagre,
+pib_ts <-  tsibble(
+  Ano = (pib_data$date),
+  Valor = pib_data$value,
+  Milagre = pib_data$milagre,
+  index = Ano
+)
+
+igpdi_data <- ipeadatar::ipeadata("IGP_IGPDIG")
+igpdi_data <- igpdi_data %>% select(-uname, -tcode, -code)
+igpdi_data <- igpdi_data %>% mutate(
+  milagre = if_else(date >= "1968-01-01" & date <= "1972-01-01", TRUE, FALSE)
+)
+
+igpdi_ts <- tsibble(
+  Ano = igpdi_data$date,
+  Valor = igpdi_data$value,
+  Milagre = igpdi_data$milagre,
   index = Ano
 )
 
@@ -79,7 +85,7 @@ series_ts <-  tsibble(
 #    theme(plot.title.position = "plot") +
 #    theme(axis.line = element_line(size = 0.5))
 
-teste <- series_ts %>%
+pib_plot <- pib_ts %>%
   filter(between(Ano, as.Date("1965-01-01"), as.Date("1975-01-01"))) %>% 
   ggplot(aes(x = Ano, y = Valor), group = Milagre) +
   labs(title = "Produto Interno bruto a preços de mercado: variação real anual em (%)",
@@ -87,30 +93,52 @@ teste <- series_ts %>%
        caption = "Fonte: Ipeadata",
        x = "Anos",
        y = "Variação em (%)") +
-  geom_line(aes(col = Milagre, group = 1), size = 1) +
+  geom_line(aes(col = Milagre, group = 1), size = 1.5) +
   scale_color_manual(values = c("#000000", "#FF0000")) +
   geom_point() +
-  geom_text(aes(label = round(Valor, digits = 2), vjust = 3, hjust = 0.5)) +
+  geom_text_repel(aes(label = round(Valor, digits = 2)), size = 3, nudge_y = 1.5) +
   ylim(0, 15.5) +
   scale_x_date(date_labels = "%Y", date_breaks = "1 year") +
   theme(#aspect.ratio = 0.8,
-        plot.caption.position = "plot",
-        plot.title.position = "plot",
-        plot.caption = element_text(hjust = 0),
-        axis.line = element_line(size = 0.5),
-        plot.title = element_text(size = 18),
-        legend.position = "none") +
-  annotate("text", as.Date("1968-01-01"), y = 11, label = "Início") +
-  annotate("point", as.Date("1968-01-01"), y = 9.8, size = 5.5, shape = 1, fill = "transparent") +
-  annotate("text", as.Date("1973-01-01"), y = 15, label = "Fim") +
-  annotate("point", as.Date("1973-01-01"), y = 14, size = 5.5, shape = 1, fill = "transparent")
+    plot.caption.position = "plot",
+    plot.title.position = "plot",
+    plot.caption = element_text(hjust = 0),
+    axis.line = element_line(size = 0.5),
+    plot.title = element_text(size = 18),
+    legend.position = "none")
+  #annotate("text", as.Date("1968-01-01"), y = 11, label = "Início") +
+  #annotate("point", as.Date("1968-01-01"), y = 9.8, size = 5.5, shape = 1, fill = "transparent") +
+  #annotate("text", as.Date("1973-01-01"), y = 15, label = "Fim") +
+  #annotate("point", as.Date("1973-01-01"), y = 14, size = 5.5, shape = 1, fill = "transparent")
 
+igpdi_plot <- igpdi_ts %>%
+  filter(between(Ano, as.Date("1965-01-01"), as.Date("1975-01-01"))) %>% 
+  ggplot(aes(x = Ano, y = Valor), group = Milagre) +
+  labs(title = "Índice geral de preços - disponibilidade interna (IGP-DI)",
+       subtitle = "1965-1975",
+       caption = "Fonte: Ipeadata",
+       x = "Anos",
+       y = "Variação em (%)") +
+  geom_line(aes(col = Milagre, group = 1), size = 1.5) +
+  scale_color_manual(values = c("#000000", "#FF0000")) +
+  geom_point() +
+#  geom_text(aes(label = round(Valor, digits = 2)), vjust = -2, hjust = 0,
+#            size = 3, angle = 45, position = position_dodge(5)) +
+  geom_text_repel(aes(label = round(Valor, digits = 2)), size = 3, nudge_y = 5) +
+  ylim(15, 45) +
+  scale_x_date(date_labels = "%Y", date_breaks = "1 year") +
+  theme(#aspect.ratio = 0.8,
+    plot.caption.position = "plot",
+    plot.title.position = "plot",
+    plot.caption = element_text(hjust = 0),
+    axis.line = element_line(size = 0.5),
+    plot.title = element_text(size = 18),
+    legend.position = "none")
+  #annotate("text", as.Date("1968-01-01"), y = 24, label = "Início", hjust = 1) +
+  #annotate("point", as.Date("1968-01-01"), y = 25.5, size = 5.5, shape = 1, fill = "transparent") +
+  #annotate("text", as.Date("1973-01-01"), y = 15.5, label = "Fim", hjust = -1) +
+  #annotate("point", as.Date("1973-01-01"), y = 15.5, size = 5.5, shape = 1, fill = "transparent")
 
-#Anotacao, apagar depois, vai servir pra mostrar quando começa a ditadura etc.
-#annotate(geom="text", x=as.Date("1989-01-01"), y=42, label="Plano Verão", family="serif") +
-#annotate(geom="point", x=as.Date("1989-01-01"), y=37, size=5, shape=1, fill="transparent") +
-#annotate(geom="text", x=as.Date("1991-03-01"), y=82, label="Plano Collor I", family="serif") +
-#annotate(geom="point", x=as.Date("1990-03-01"), y=82, size=5, shape=1, fill="transparent") +
 ```
 
 ## 
@@ -125,13 +153,35 @@ teste <- series_ts %>%
 #| fig-width: 9
 #| fig-height: 7
 
-#series_plot
-
-teste
+pib_plot
 
 ```
 
-## Detalhes
+## 
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-align: center
+#| fig-format: retina
+#| fig-dpi: 300
+#| fig-width: 9
+#| fig-height: 7
+
+igpdi_plot
+
+```
+
+## Precedentes do Milagre Econômico
+
+::: {.incremental .paragrafo}
+-   PAEG;
+-   Denominado milagre econômico por conta de políticas monetárias expansionista e crescimento da atividade econômica;
+-   Gradual redução da inflação e do desequilíbrio externo;
+-   Elevado crescimento do produto interno da economia brasileira, numa média de até 11% anual;
+-   Superávits no balanço de pagamentos.
+:::
 
 ## Referências
 
