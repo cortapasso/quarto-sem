@@ -1,4 +1,4 @@
 - source: index.qmd
   quarto-pub:
     - id: d2d5ed6a-6e5b-4375-a91b-570b8032c510
-      url: 'https://quartopub.com/sites/cortapasso/teste'
+      url: 'https://cortapasso.quarto.pub/seminario-brasileira'

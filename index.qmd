@@ -4,7 +4,7 @@ subtitle: "2ECO118 - Economia Brasileira"
 author: "João P. Cortapasso <br> Mestrando em Economia Regional <br><br><a href='https://github.com/cortapasso'><i class='fa-brands fa-github'></i>&nbsp; cortapasso</a>"
 date: 06/09/2022 <br> <img src="img/ppe.png" class="imgleft"/> <img src="img/logo.png" class="imgright"/>
 bibliography: "styles/ref.bib"
-csl:  "styles/abnt3.csl"
+csl:  "styles/abnt4.csl"
 format: 
   revealjs:
     theme: [default, "styles/custom.scss"]
@@ -14,21 +14,93 @@ editor: visual
 include-in-header: "styles/header.html"
 ---
 
-::: {.center .titulo}
-## O milagre econômico e a distribuição de renda no Brasil {background-color="black" background-image="img/bg.webp" background-size="cover"}
+::: {.titulo}
+# O milagre econômico e a distribuição de renda no Brasil {background-color="black" background-image="https://static.poder360.com.br/2021/04/volkswagen-producao.jpeg" background-size="cover"}
 :::
 
 ## Definição
 
 ::: {.incremental .paragrafo}
 -   Período entre 1968 a 1973;
--   Denominado milagre econômico por conta de políticas monetárias expansionista e crescimento da atividade econômica;
--   Gradual redução da inflação e do desequilíbrio externo;
+-   Delfim Netto como Ministro da Fazenda;
+-   Denominado milagre econômico por conta de políticas monetárias expansionistas e crescimento da atividade econômica;
+-   Gradual redução da inflação e d0o desequilíbrio externo;
 -   Elevado crescimento do produto interno da economia brasileira, numa média de até 11% anual;
 -   Superávits no balanço de pagamentos.
 :::
 
+::: {.titulo}
+# Precedentes do milagre econômico {background-color="black" background-image="https://opara.nyc3.cdn.digitaloceanspaces.com/outraspalavras/uploads/2022/07/18132020/E2hsF74WUAA93ME.jpg" background-size="cover"}
+:::
 
+## Reformas estruturais entre 1964--1967
+
+:::{.paragrafo}
+- De 1964 a 1967, caracterizou-se como uma fase de ajuste conjuntural e estrutural da economia, visando ao enfrentamento do processo inflacionário, do desequilíbrio externo e do quadro de estagnação econômica do início do período;
+
+- Implementação de um plano de estabilização de preços de inspiração ortodoxa -- o Plano de Ação Econômica do Governo (Paeg) -- e de importantes reformas estruturais -- do sistema financeiro, da estrutura tributária e do mercado de trabalho.^[@herman:2011]
+:::
+
+## Reformas estruturais entre 1964--1967
+
+:::{.paragrafo}
+- Criação do FGTS (Fundo de Garantia por Tempo de Serviço), que substituiu o regime de estabilidade no emprego, então vigente, entendido como um entrave institucional ao aumento do emprego e, por conseguinte, ao crescimento econômico;
+
+- Reforma tributária que previa o aumento da arrecadação do governo (Imposto Sobre Serviços, Imposto sobre Circulação de Mercadorias);^[@herman:2011]
+:::
+
+## Reformas estruturais entre 1964--1967
+
+:::{.paragrafo}
+- Reforma financeira: criação do BACEN e do Conselho Monetário Nacional, regulamentação de bancos de investimento, Sistema Financeiro da Habitação;
+
+- Ampliação do grau de abertura da economia ao capital externo, de risco e de empréstimo.^[@herman:2011]
+:::
+
+::: {.titulo}
+# Os primeiros anos do milagre econômico {background-color="black" background-image="https://pt.org.br/wp-content/uploads/2019/03/ditadura.jpg" background-size="cover"}
+:::
+
+
+## Em 1968
+
+:::{.paragrafo}
+- Em meados de 1968 é lançado o Plano Estratégico de Desenvolvimento (PED), que visava a estabilização dos preços, fortalecer empresas privadas visando a retomada de investimento, consolidação da infraestrutura e ampliação do mercado interno, visando a demanda de bens de consumo;^[@herman:2011]
+
+- Minidesvalorizações cambiais para conter os danods causados pela inflação na balança de pagamentos;
+
+- Decreto do AI-5 em dezembro de 1968 devido às inúmeras manifestações contrárias ao regime militar.
+:::
+
+
+
+## Obras
+
+[- Programa nuclear brasileiro: Angra 1 iniciada em 1972;]{.paragrafo}
+[- Programa nuclear brasileiro: Angra 1 iniciada em 1972;]{.paragrafo}
+[- Programa nuclear brasileiro: Angra 1 iniciada em 1972;]{.paragrafo}
+[- Programa nuclear brasileiro: Angra 1 iniciada em 1972;]{.paragrafo}
+
+
+
+
+<!--
+::: {.incremental .paragrafo}
+-   PAEG;
+:::
+
+-->
+
+## Impactos
+
+::: {.incremental .paragrafo}
+-   Concentração de renda;
+-   Aumento da dívida externa;
+-   Investimentos em empresas estatais (principalmente no setor de telecomunicações e construção civil);
+-   Enquanto que, empresas multinacionais focavam em investimentos de produto de consumo como automóveis.
+:::
+
+<!--
 ```{r}
 #| echo: false
 #| message: false
@@ -173,15 +245,9 @@ igpdi_plot
 
 ```
 
-## Precedentes do Milagre Econômico
+-->
 
-::: {.incremental .paragrafo}
--   PAEG;
--   Denominado milagre econômico por conta de políticas monetárias expansionista e crescimento da atividade econômica;
--   Gradual redução da inflação e do desequilíbrio externo;
--   Elevado crescimento do produto interno da economia brasileira, numa média de até 11% anual;
--   Superávits no balanço de pagamentos.
-:::
+
 
 ## Referências
 

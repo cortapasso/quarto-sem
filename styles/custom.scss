@@ -13,7 +13,7 @@ $azul: #3D25D6;
 
 /*-- scss:rules --*/
 
-.title-slide {
+.date img {
   background-image: $logo;
   background-position: $posicao;
   background-size: $tamanho;
@@ -35,11 +35,18 @@ $azul: #3D25D6;
 }
 
 .titulo{
-  background-color: none;
   text-align: center;
-  font-size: 50px;
+}
+
+.titulo .slide-background-content {
+  filter: blur(3px);
+}
+
+.titulo h1 {
+  text-shadow: 2px 2px #ff0000;
 }
 
 .paragrafo {
   text-align: justify;
 }
+
