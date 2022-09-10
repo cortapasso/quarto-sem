@@ -4,7 +4,7 @@ subtitle: "2ECO118 - Economia Brasileira"
 author: "João P. Cortapasso <br> Mestrando em Economia Regional <br><br><a href='https://github.com/cortapasso'><i class='fa-brands fa-github'></i>&nbsp; cortapasso</a>"
 date: 06/09/2022 <br> <img src="img/ppe.png" class="imgleft"/> <img src="img/logo.png" class="imgright"/>
 bibliography: "styles/ref.bib"
-csl:  "styles/abnt4.csl"
+csl:  "styles/abnt.csl"
 format: 
   revealjs:
     theme: [default, "styles/custom.scss"]
@@ -12,6 +12,7 @@ format:
     slide-number: true
 editor: visual
 include-in-header: "styles/header.html"
+lang: "pt-br"
 ---
 
 ::: {.titulo}
@@ -24,83 +25,12 @@ include-in-header: "styles/header.html"
 -   Período entre 1968 a 1973;
 -   Delfim Netto como Ministro da Fazenda;
 -   Denominado milagre econômico por conta de políticas monetárias expansionistas e crescimento da atividade econômica;
--   Gradual redução da inflação e d0o desequilíbrio externo;
+-   Gradual redução da inflação e do desequilíbrio externo;
 -   Elevado crescimento do produto interno da economia brasileira, numa média de até 11% anual;
 -   Superávits no balanço de pagamentos.
 :::
 
-::: {.titulo}
-# Precedentes do milagre econômico {background-color="black" background-image="https://opara.nyc3.cdn.digitaloceanspaces.com/outraspalavras/uploads/2022/07/18132020/E2hsF74WUAA93ME.jpg" background-size="cover"}
-:::
 
-## Reformas estruturais entre 1964--1967
-
-:::{.paragrafo}
-- De 1964 a 1967, caracterizou-se como uma fase de ajuste conjuntural e estrutural da economia, visando ao enfrentamento do processo inflacionário, do desequilíbrio externo e do quadro de estagnação econômica do início do período;
-
-- Implementação de um plano de estabilização de preços de inspiração ortodoxa -- o Plano de Ação Econômica do Governo (Paeg) -- e de importantes reformas estruturais -- do sistema financeiro, da estrutura tributária e do mercado de trabalho.^[@herman:2011]
-:::
-
-## Reformas estruturais entre 1964--1967
-
-:::{.paragrafo}
-- Criação do FGTS (Fundo de Garantia por Tempo de Serviço), que substituiu o regime de estabilidade no emprego, então vigente, entendido como um entrave institucional ao aumento do emprego e, por conseguinte, ao crescimento econômico;
-
-- Reforma tributária que previa o aumento da arrecadação do governo (Imposto Sobre Serviços, Imposto sobre Circulação de Mercadorias);^[@herman:2011]
-:::
-
-## Reformas estruturais entre 1964--1967
-
-:::{.paragrafo}
-- Reforma financeira: criação do BACEN e do Conselho Monetário Nacional, regulamentação de bancos de investimento, Sistema Financeiro da Habitação;
-
-- Ampliação do grau de abertura da economia ao capital externo, de risco e de empréstimo.^[@herman:2011]
-:::
-
-::: {.titulo}
-# Os primeiros anos do milagre econômico {background-color="black" background-image="https://pt.org.br/wp-content/uploads/2019/03/ditadura.jpg" background-size="cover"}
-:::
-
-
-## Em 1968
-
-:::{.paragrafo}
-- Em meados de 1968 é lançado o Plano Estratégico de Desenvolvimento (PED), que visava a estabilização dos preços, fortalecer empresas privadas visando a retomada de investimento, consolidação da infraestrutura e ampliação do mercado interno, visando a demanda de bens de consumo;^[@herman:2011]
-
-- Minidesvalorizações cambiais para conter os danods causados pela inflação na balança de pagamentos;
-
-- Decreto do AI-5 em dezembro de 1968 devido às inúmeras manifestações contrárias ao regime militar.
-:::
-
-
-
-## Obras
-
-[- Programa nuclear brasileiro: Angra 1 iniciada em 1972;]{.paragrafo}
-[- Programa nuclear brasileiro: Angra 1 iniciada em 1972;]{.paragrafo}
-[- Programa nuclear brasileiro: Angra 1 iniciada em 1972;]{.paragrafo}
-[- Programa nuclear brasileiro: Angra 1 iniciada em 1972;]{.paragrafo}
-
-
-
-
-<!--
-::: {.incremental .paragrafo}
--   PAEG;
-:::
-
--->
-
-## Impactos
-
-::: {.incremental .paragrafo}
--   Concentração de renda;
--   Aumento da dívida externa;
--   Investimentos em empresas estatais (principalmente no setor de telecomunicações e construção civil);
--   Enquanto que, empresas multinacionais focavam em investimentos de produto de consumo como automóveis.
-:::
-
-<!--
 ```{r}
 #| echo: false
 #| message: false
@@ -139,6 +69,29 @@ igpdi_ts <- tsibble(
   Milagre = igpdi_data$milagre,
   index = Ano
 )
+
+salario_data <- ipeadatar::ipeadata("GAC12_SALMINRE12")
+salario_data <- salario_data %>% select(-uname, -tcode, -code)
+salario_data <- salario_data %>% mutate(
+  milagre = if_else(date >= "1968-01-01" & date <= "1973-01-01", TRUE, FALSE)
+)
+
+salario_ts <- tsibble(
+  Ano = (salario_data$date),
+  Valor = salario_data$value,
+  Milagre = salario_data$milagre,
+  index = Ano
+)
+
+pibpercapita_data <- ipeadatar::ipeadata("GAC_PIBCAPR")
+pibpercapita_data <- pibpercapita_data %>% select(-uname, -tcode, -code)
+
+pibpercapita_ts <- tsibble(
+  Ano = (pibpercapita_data$date),
+  Valor = pibpercapita_data$value,
+  index = Ano
+)
+
 
 #Decidi deixar esse jeito de lado, pois o de baixo da um resultado melhor :D
 #series_plot <- series_ts %>% 
@@ -211,6 +164,45 @@ igpdi_plot <- igpdi_ts %>%
   #annotate("text", as.Date("1973-01-01"), y = 15.5, label = "Fim", hjust = -1) +
   #annotate("point", as.Date("1973-01-01"), y = 15.5, size = 5.5, shape = 1, fill = "transparent")
 
+
+salario_plot <- salario_ts %>%
+  filter(between(Ano, as.Date("1965-01-01"), as.Date("1975-01-01"))) %>% 
+  ggplot(aes(x = Ano, y = Valor), group = Milagre) +
+  labs(title = "Salário mínimo real",
+       subtitle = "1965-1975",
+       caption = "Fonte: Ipeadata",
+       x = "Anos",
+       y = "Valor em R$") +
+  geom_line(aes(col = Milagre, group = 1), size = 1.5) +
+  scale_color_manual(values = c("#000000", "#FF0000")) +
+  geom_smooth(method = lm, se = FALSE, col = 'blue', size = 1) +
+  scale_x_date(date_labels = "%Y", date_breaks = "1 year") +
+  theme(#aspect.ratio = 0.8,
+    plot.caption.position = "plot",
+    plot.title.position = "plot",
+    plot.caption = element_text(hjust = 0),
+    axis.line = element_line(size = 0.5),
+    plot.title = element_text(size = 18),
+    legend.position = "none")
+
+pibpercapita_plot <- pibpercapita_ts %>%
+  filter(between(Ano, as.Date("1955-01-01"), as.Date("1985-01-01"))) %>% 
+  ggplot(aes(x = Ano, y = Valor)) +
+  labs(title = "	Produto interno bruto (PIB) per capita (preços 2019)",
+       subtitle = "1955-1985",
+       caption = "Fonte: Ipeadata",
+       x = "Anos",
+       y = "Valor em R$") +
+  geom_line(size = 1.5) +
+  scale_x_date(date_labels = "%Y", date_breaks = "5 year") +
+  theme(#aspect.ratio = 0.8,
+    plot.caption.position = "plot",
+    plot.title.position = "plot",
+    plot.caption = element_text(hjust = 0),
+    axis.line = element_line(size = 0.5),
+    plot.title = element_text(size = 18),
+    legend.position = "none")
+
 ```
 
 ## 
@@ -245,10 +237,247 @@ igpdi_plot
 
 ```
 
--->
+
+::: {.titulo}
+# Precedentes do milagre econômico {background-color="black" background-image="https://opara.nyc3.cdn.digitaloceanspaces.com/outraspalavras/uploads/2022/07/18132020/E2hsF74WUAA93ME.jpg" background-size="cover"}
+:::
+
+## Reformas estruturais entre 1964--1967
+
+:::{.paragrafo}
+- De 1964 a 1967, caracterizou-se como uma fase de ajuste conjuntural e estrutural da economia, visando ao enfrentamento do processo inflacionário, do desequilíbrio externo e do quadro de estagnação econômica do início do período;
+
+- Implementação de um plano de estabilização de preços de inspiração ortodoxa -- o Plano de Ação Econômica do Governo (Paeg) -- e de importantes reformas estruturais -- do sistema financeiro, da estrutura tributária e do mercado de trabalho.^[@herman:2011]
+:::
+
+## Reformas estruturais entre 1964--1967
+
+:::{.paragrafo}
+- Criação do FGTS (Fundo de Garantia por Tempo de Serviço), que substituiu o regime de estabilidade no emprego, então vigente, entendido como um entrave institucional ao aumento do emprego e, por conseguinte, ao crescimento econômico;
+
+- Reforma tributária que previa o aumento da arrecadação do governo (Imposto Sobre Serviços, Imposto sobre Circulação de Mercadorias);^[@herman:2011]
+:::
+
+## Reformas estruturais entre 1964--1967
+
+:::{.paragrafo}
+- Reforma financeira: criação do BACEN e do Conselho Monetário Nacional, regulamentação de bancos de investimento, Sistema Financeiro da Habitação;
+
+- Ampliação do grau de abertura da economia ao capital externo, de risco e de empréstimo.^[@herman:2011]
+:::
+
+::: {.titulo}
+# Os primeiros anos do milagre econômico {background-color="black" background-image="https://pt.org.br/wp-content/uploads/2019/03/ditadura.jpg" background-size="cover"}
+:::
 
 
+## Em 1968
 
+:::{.paragrafo}
+- Em meados de 1968 é lançado o Plano Estratégico de Desenvolvimento (PED), que visava a estabilização dos preços, fortalecer empresas privadas visando a retomada de investimento, consolidação da infraestrutura e ampliação do mercado interno, visando a demanda de bens de consumo;^[@herman:2011]
+
+- Decreto do AI-5 em dezembro de 1968 devido às inúmeras manifestações contrárias ao regime militar.
+:::
+
+## Políticas econômicas durante o milagre
+
+:::{.paragrafo}
+- Minidesvalorizações cambiais para conter os danods causados pela inflação na balança de pagamentos;
+- Estímulo à demanda por meio de políticas monetárias, fiscais e creditícias;^[@fgv:2022]
+- Expansão do crédito, especialmente ao consumidor e à agricultura;
+- Isenções fiscais e de juros favorecidos ao setor agrícola.
+:::
+
+
+## Obras
+
+:::{.incremental .paragrafo}
+- Rodovia Transamazônica;
+- Ponte Rio-Niterói;
+- Minhocão em São Paulo em 1971;
+- Programa nuclear brasileiro: Angra 1 iniciada em 1972;
+- Início da construção da hidrelétrica Itaipu em 1973;
+- Refinaria de Paulínia em 1972.
+:::
+
+## Indicadores econômicos
+
+:::{.r-fit-text}
+
+**Tabela 1 **-- Economia Brasileira -- Síntese de Indicadores Macroeconômicos -- 1964-1973
+
+| **Indicadores** | **Médias 1964-67** | **Médias 1968-73** |
+|:---|:---:|:---:|
+| Crescimento do PIB (% a.a.) | 4,2 | 11,1 |
+| Inflação (IGP dez./dez., % a.a.) | 45,5 | 19,1 |
+| FBCF (% PIB a preços correntes) | 15,5 | 19,5 |
+| Tx. de cresc. das exportações de bens (US$ correntes, % a.a.) | 4,1 | 24,6 |
+| Tx. de cresc. das importações de bens (US$ correntes, % a.a.) | 2,7 | 27,5 |
+| Balança comercial (US$ milhões) | 412 | 0 |
+| Saldo em conta corrente (US$ milhões) | 15 | -1.198 |
+| Dívida externa líquida/Exportação de bens | 2,0 | 1,8 |
+
+**Fonte:** @herman:2011
+:::
+
+::: {.titulo}
+# Distribuição de renda {background-color="black" background-image="https://images.alphacoders.com/243/thumb-1920-24313.jpg" background-size="cover"}
+:::
+
+
+## Distribuição de renda
+
+:::{.paragrafo}
+Para @hammoud2008 não restam duvidas referente ao crescimento econômico que o
+país passou durante o período que se sucedera, porém o que deve-se questionar é se houve
+desenvolvimento econômico associado a este crescimento. O índice de Gini permite ter uma ideia
+sobre como foi a desigualdade nos anos do milagre, ele é uma forma de calcular a disparidade de
+renda. O valor zero representa a situação de igualdade, ou seja, todos têm a mesma renda. O
+valor um (ou cem) está no extremo oposto, isto é, uma só pessoa detém toda a riqueza. O índice
+de Theil também é uma medida estatística da distribuição de renda pelo logaritmo neperiano.
+:::
+
+
+## Índice de Gini
+
+**Tabela 2 **-- Variação dos índices de concentração 1960-1970
+
+| **Índices** | **Médias 1960** | **Médias 1970** |
+|-------------|:---------------:|:---------------:|
+| GINI        |      0,4999     |      0,5684     |
+| GINI*       |      0,5570     |      0,6049     |
+| THEIL       |      0,4694     |      0,5802     |
+| THEIL*      |      0,6442     |      0,7267     |
+
+**Fonte:** @barone2015 apud. Langoni, 2013.
+
+## Arrocho salarial
+
+:::{.paragrafo}
+- Com o mercado aquecido, a alta no nível de emprego ocasionou um êxodo rural que
+fez com que muitas famílias que residiam no campo se deslocassem para os meios urbanos em
+busca de trabalho e melhores condições de vida, contudo, para atrair os empresários, o governo
+utilizou-se do arrocho salarial a partir da intervenção sobre os sindicatos, diminuindo o poder
+de negociação dos trabalhadores, acarretando no barateamento da mão-de-obra.
+:::
+
+## Arrocho salarial
+
+:::{.paragrafo}
+- Além disso o Imposto de Renda teve sua alíquota máxima reduzida, beneficiando os empresários além de
+conceder várias isenções fiscais. Tais medidas trouxeram como consequência a queda do salário
+real para os trabalhadores, a concentração de renda nas mãos da elite e uma elevação do poder
+de compra para a classe média.
+:::
+
+## 
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-align: center
+#| fig-format: retina
+#| fig-dpi: 300
+#| fig-width: 9
+#| fig-height: 7
+
+salario_plot
+
+```
+
+## PIB per capita
+
+:::{.paragrafo}
+- Outro indicador importante para se provar a desigualdade social e a má distribuição de
+renda se dá por conta do PIB per capita, que é um indicador utilizado na macroeconomia, e
+tem como objetivo a economia de um país, estado, ou região. O PIB per capita é usado como
+indicador, pois quanto mais rico o país é, mais seus cidadãos se beneficiam. O PIB possui apenas
+uma consideração, é possível que o PIB aumente enquanto os cidadãos ficam mais pobres, e isso
+ocorre pois o PIB não considera o nível de desigualdade de renda das sociedades.
+:::
+
+## 
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-align: center
+#| fig-format: retina
+#| fig-dpi: 300
+#| fig-width: 9
+#| fig-height: 7
+
+pibpercapita_plot
+
+```
+
+## PIB per capita
+
+:::{.paragrafo}
+O PIB per capita do Brasil crescera rapidamente durante o período do milagre, contudo, como observamos ao analisar o salário real do mesmo período anteriormente, os rendimentos não acompanharam tal crescimento, provando que mesmo no tempo onde a economia Brasileira mais cresceu, pouco se desenvolveu.
+:::
+
+::: {.titulo}
+# Impactos, considerações e o fim do milagre {background-color="black" background-image="https://jcconcursos.com.br/media/uploads/noticia/ditadura-militar-acervo_memorias_da_ditadura.jpg" background-size="cover"}
+:::
+
+## Impactos
+
+::: {.incremental .paragrafo}
+-   Criação de importantes estatais (BACEN);
+-   Crescimento do produto industrial;
+-   Investimentos em empresas estatais (principalmente no setor de telecomunicações e construção civil);
+-   Enquanto que, empresas multinacionais focavam em investimentos de produto de consumo como automóveis;
+-   Grandes obras de infraestura no país;
+-   Aumento nas exportaçãos e importações.
+:::
+
+## Impactos
+
+::: {.incremental .paragrafo}
+-   Concentração de renda;
+-   Aumento da dívida externa;
+-   Redução do salário mínimo;
+:::
+
+
+## O fim do milagre
+
+::: {.incremental .paragrafo}
+-   Crise do petróleo em 1973;
+-   EUA eleva juros de mercado;
+-   Aumento da inflação e queda do PIB;
+-   Déficit na balança de pagamentos;
+-   Aumento do arrocho salarial.
+:::
+
+## Considerações Finais
+:::{.paragrafo}
+O “milagre econômico” foi de fato um período marcante para a história do Brasil, as obras faraônicas somadas ao epopeico crescimento do PIB e ao maior grau de abertura da economia frente ao exterior proporcionaram um cenário jamais visto na história do país. Contudo, por detrás dos números elevados que o país experimentava, escondia uma população carente de qualificação e saúde. 
+
+
+:::
+
+## Considerações Finais
+:::{.paragrafo}
+O apoio do governo aos investidores somado a intervenção estatal sobre os sindicatos
+dos trabalhadores garantiu a depreciação salarial, oferecendo uma mão de obra mais barata no
+mercado. O aumento pela procura de emprego acarretou num êxodo rural e, como a população
+rural não tinha qualificação, acabaram por adentrar no ramo da construção civil e de serviços, impactando diretamente sobre as cidades que não estavam preparadas para receber a multidão
+que acabara por se concentrar em áreas periféricas sem acesso a saúde ou educação.
+:::
+
+## Considerações Finais
+:::{.paragrafo}
+Com o crescimento econômico era necessária mão de obra qualificada, mas a falta de
+investimento na área de qualificação e educação garantiu o crescimento da desigualdade de renda
+entre os mais escolarizados e os mais pobres. Isso fica claro ao analisar o índice de Gini, provando
+que até mesmo as pessoas com renda 0, o indicador se elevou consideravelmente durante os
+anos milagrosos, o salário real depreciado assegurou ainda mais as diferenças salariais entre a
+população e a elevação acirrada do PIB sustentava a ideia de que a população adentrava num
+sonho em busca de melhores condições de vida.
+:::
 ## Referências
 
 ::: {#refs}
