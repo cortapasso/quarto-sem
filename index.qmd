@@ -2,7 +2,7 @@
 title: "Seminário"
 subtitle: "2ECO118 - Economia Brasileira"
 author: "João P. Cortapasso <br> Mestrando em Economia Regional <br><br><a href='https://github.com/cortapasso'><i class='fa-brands fa-github'></i>&nbsp; cortapasso</a>"
-date: 06/09/2022 <br> <img src="img/ppe.png" class="imgleft"/> <img src="img/logo.png" class="imgright"/>
+date: 13/09/2022 <br> <img src="img/ppe.png" class="imgleft"/> <img src="img/logo.png" class="imgright"/>
 bibliography: "styles/ref.bib"
 csl:  "styles/abnt.csl"
 format: 
@@ -282,7 +282,7 @@ igpdi_plot
 ## Políticas econômicas durante o milagre
 
 :::{.paragrafo}
-- Minidesvalorizações cambiais para conter os danods causados pela inflação na balança de pagamentos;
+- Minidesvalorizações cambiais para conter os danos causados pela inflação na balança de pagamentos;
 - Estímulo à demanda por meio de políticas monetárias, fiscais e creditícias;^[@fgv:2022]
 - Expansão do crédito, especialmente ao consumidor e à agricultura;
 - Isenções fiscais e de juros favorecidos ao setor agrícola.
